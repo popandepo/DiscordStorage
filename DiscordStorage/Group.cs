@@ -11,5 +11,11 @@ namespace DiscordStorage
         ulong ID { get; set; }
         List<User> Users { get; set; }
         List<Information> Info { get; set; }
+
+        public Group(ulong id, params User[] users)
+        {
+            ID = id;
+            Users = users.ToList();
+        }
     }
 }

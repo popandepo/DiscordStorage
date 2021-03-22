@@ -8,7 +8,13 @@ namespace DiscordStorage
 {
     class User
     {
-        static ulong ID { get; set; }
+        ulong ID { get; set; }
         List<Information> Info { get; set; }
+
+        public User(ulong id)
+        {
+            ID = id;
+            Info = new List<Information>();
+        }
     }
 }
