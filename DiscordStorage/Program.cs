@@ -1,12 +1,10 @@
-﻿using System;
-
-namespace DiscordStorage
+﻿namespace DiscordStorage
 {
     class Program
     {
         static void Main(string[] args)
         {
-            
+
         }
     }
 }
