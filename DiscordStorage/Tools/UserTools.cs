@@ -1,4 +1,6 @@
-﻿namespace DiscordStorage
+﻿using System.Collections.Generic;
+
+namespace DiscordStorage
 {
     class UserTools
     {
@@ -27,14 +29,50 @@
             return false;
         }
 
+        internal static void SaveAll()
+        {
+            foreach (var user in Program.userList)
+            {
+                string output = "[";
+
+                foreach (var info in user.Info)
+                {
+                    output += "{";
+                    foreach (var text in info.Content)
+                    {
+                        output += text;
+                        output += "|";
+                    }
+                    output = output.Trim('|');
+                }
+
+
+                FileManipulation.WriteFile(user.ID.ToString(), output);
+            }
+        }
+
         internal static void ConcatContent(ulong id, string[] content)
         {
-            Information info = GetInformation(id, content[0]);
-            string[] holding = new string[content.Length - 1];
-
-            for (int i = 0; i < content.Length; i++)
+            List<Information> info = GetInformation(id, content[0]);
+            content = RemoveFirst(content);
+            foreach (var entry in info)
             {
-                string text = content[i];
+
+                foreach (var text in content)
+                {
+                    entry.Content.Add(text);
+                }
+            }
+
+        }
+
+        internal static string[] RemoveFirst(string[] input)
+        {
+            string[] holding = new string[input.Length - 1];
+
+            for (int i = 0; i < input.Length; i++)
+            {
+                string text = input[i];
 
                 if (i != 0)
                 {
@@ -42,13 +80,8 @@
                 }
             }
 
-            content = holding;
-
-            foreach (var text in content)
-            {
-                info.Content.Add(text);
-            }
-
+            input = holding;
+            return input;
         }
 
         internal static User GetUser(ulong id)
@@ -68,9 +101,10 @@
             return null;
         }
 
-        internal static Information GetInformation(ulong id, string searchTerm)
+        internal static List<Information> GetInformation(ulong id, string searchTerm)
         {
             User user = GetUser(id);
+            List<Information> info = new List<Information>();
 
             foreach (var entry in user.Info)
             {
@@ -78,22 +112,28 @@
                 {
                     if (text.Contains(searchTerm))
                     {
-                        return entry;
+                        if (!info.Contains(entry))
+                        {
+                            info.Add(entry);
+                        }
                     }
                 }
             }
-            return null;
+            return info;
         }
 
         internal static string GetFirstContent(ulong id, string searchTerm)
         {
-            Information info = GetInformation(id, searchTerm);
+            List<Information> info = GetInformation(id, searchTerm);
 
-            foreach (var text in info.Content)
+            foreach (var entry in info)
             {
-                if (text.Contains(searchTerm))
+                foreach (var text in entry.Content)
                 {
-                    return text;
+                    if (text.Contains(searchTerm))
+                    {
+                        return text;
+                    }
                 }
             }
             return null;
@@ -115,17 +155,22 @@
 
         internal static string GetAllContent(ulong id, string searchTerm)
         {
-            Information info = GetInformation(id, searchTerm);
+            List<Information> info = GetInformation(id, searchTerm);
             string output = "";
 
             try
             {
-                foreach (var text in info.Content)
+                foreach (var entry in info)
                 {
-                    output += text;
-                    output += "|";
+
+                    foreach (var text in entry.Content)
+                    {
+                        output += text;
+                        output += "|";
+                    }
+                    output = output.Trim('|');
+                    output += "\n";
                 }
-                output = output.Trim('|');
             }
             catch
             {

@@ -16,12 +16,13 @@ namespace DiscordStorage
                     if (!UserTools.UserExists(message.Author.Id))
                     {
                         Program.userList.Add(new User(message.Author.Id));
+                        FileManipulation.LoadFile(message.Author.Id.ToString());
                     }
 
                     try
                     {
-                        string command = message.Content.Split(Program.commandChar)[0];
-                        string rest = message.Content.Remove(0, command.Length + 1);
+                        string command = message.Content.Split(Program.commandChar)[0].ToLower();
+                        string rest = message.Content.Remove(0, command.Length + 1).ToLower().Trim('|');
                         string[] content = rest.Split(Program.splitChar);
 
                         CommandHandler.Send(message.Author.Id, command, content);

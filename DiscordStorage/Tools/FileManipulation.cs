@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 
 namespace DiscordStorage
 {
@@ -17,6 +18,30 @@ namespace DiscordStorage
             string output = File.ReadAllText(filePath);
 
             return output;
+        }
+
+        internal static void LoadFile(string id)
+        {
+            string input = File.ReadAllText(id);
+
+            string[] sqbr = input.Split('[');
+            sqbr = UserTools.RemoveFirst(sqbr);
+
+            string[] crbr = sqbr[0].Split('{');
+            crbr = UserTools.RemoveFirst(crbr);
+
+            foreach (var text in crbr)
+            {
+                string[] words = text.Split('|');
+                User user = UserTools.GetUser(Convert.ToUInt64(id));
+
+                user.Info.Add(new Information(words));
+            }
+        }
+
+        internal static void WriteFile(string name, string output)
+        {
+            File.WriteAllText(name, output);
         }
     }
 }
