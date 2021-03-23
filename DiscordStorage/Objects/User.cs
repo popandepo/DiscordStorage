@@ -4,8 +4,8 @@ namespace DiscordStorage
 {
     class User
     {
-        ulong ID { get; set; }
-        List<Information> Info { get; set; }
+        public ulong ID { get; set; }
+        public List<Information> Info { get; set; }
 
         public User(ulong id)
         {

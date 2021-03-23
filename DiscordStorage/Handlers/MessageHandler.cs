@@ -13,6 +13,10 @@ namespace DiscordStorage
                 if (message.Content.Contains(Program.commandChar))
                 {
 
+                    if (!UserTools.UserExists(message.Author.Id))
+                    {
+                        Program.userList.Add(new User(message.Author.Id));
+                    }
 
                     try
                     {

@@ -5,9 +5,9 @@ namespace DiscordStorage
 {
     class Group
     {
-        ulong ID { get; set; }
-        List<User> Users { get; set; }
-        List<Information> Info { get; set; }
+        public ulong ID { get; set; }
+        public List<User> Users { get; set; }
+        public List<Information> Info { get; set; }
 
         public Group(ulong id, params User[] users)
         {
