@@ -27,6 +27,11 @@ namespace DiscordStorage
                 case "&+":
                     UserTools.CreateGroup(id, content);
                     break;
+                case "G+":
+                    GroupTools.Add(content);
+                    GroupTools.SaveAll();
+                    break;
+                case "G?"
                 default:
                     break;
             }

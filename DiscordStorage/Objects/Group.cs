@@ -14,9 +14,14 @@ namespace DiscordStorage
         {
             Users = users.ToList();
             ID = "";
+            List<string> ids = new List<string>();
             foreach (var user in Users)
             {
-                ID += user.ID;
+                ids.Add(user.ID.ToString());
+            }
+            foreach (var id in ids)
+            {
+                ID += id.Remove(18 / ids.Count);
             }
             foreach (var user in Users)
             {
