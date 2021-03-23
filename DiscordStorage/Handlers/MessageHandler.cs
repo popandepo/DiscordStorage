@@ -28,7 +28,7 @@ namespace DiscordStorage
                     }
                     catch
                     {
-                        message.Author.SendMessageAsync("Command is not correctly formatted, please try again or contact an administrator");
+                        message.Author.SendMessageAsync("Command is not correctly formatted, please try again or contact an administrator.");
                     }
                 }
             }

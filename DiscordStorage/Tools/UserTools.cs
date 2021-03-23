@@ -30,7 +30,20 @@
         internal static void ConcatContent(ulong id, string[] content)
         {
             Information info = GetInformation(id, content[0]);
-            content.CopyTo(content, 1);
+            string[] holding = new string[content.Length - 1];
+
+            for (int i = 0; i < content.Length; i++)
+            {
+                string text = content[i];
+
+                if (i != 0)
+                {
+                    holding[i - 1] = text;
+                }
+            }
+
+            content = holding;
+
             foreach (var text in content)
             {
                 info.Content.Add(text);
@@ -104,13 +117,19 @@
         {
             Information info = GetInformation(id, searchTerm);
             string output = "";
-            foreach (var text in info.Content)
+
+            try
             {
-                if (text.Contains(searchTerm))
+                foreach (var text in info.Content)
                 {
                     output += text;
-                    output += "\n";
+                    output += "|";
                 }
+                output = output.Trim('|');
+            }
+            catch
+            {
+                output = "No corresponding entries found.";
             }
             return output;
         }

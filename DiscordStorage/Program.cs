@@ -31,12 +31,17 @@ namespace DiscordStorage
                 await _client.LoginAsync(TokenType.Bot, token);
                 await _client.StartAsync();
                 await _client.SetStatusAsync(UserStatus.Online);
+                _client.MessageReceived += MessageHandler.Send;
+
+                while (true)
+                {
+
+                }
             }
             catch
             {
                 System.Environment.Exit(5);
             }
-            _client.MessageReceived += MessageHandler.Send;
         }
     }
 }
