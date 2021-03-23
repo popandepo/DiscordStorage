@@ -163,12 +163,21 @@ namespace DiscordStorage
                 foreach (var entry in info)
                 {
 
-                    foreach (var text in entry.Content)
+                    for (int i = 0; i < entry.Content.Count; i++)
                     {
+                        string text = entry.Content[i];
                         output += text;
-                        output += "|";
+                        if (i == 0)
+                        {
+                            output += ": ";
+                        }
+                        else
+                        {
+                            output += ", ";
+                        }
                     }
-                    output = output.Trim('|');
+                    output = output.Trim(' ');
+                    output = output.Trim(',');
                     output += "\n";
                 }
             }
