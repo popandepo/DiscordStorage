@@ -23,6 +23,10 @@ namespace DiscordStorage
                 case "??":
                     Program._client.GetUser(id).SendMessageAsync(UserTools.GetAllContent(id));
                     break;
+
+                case "&+":
+                    UserTools.CreateGroup(id, content);
+                    break;
                 default:
                     break;
             }
