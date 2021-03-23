@@ -2,6 +2,7 @@
 {
     class UserTools
     {
+
         internal static bool UserExists(ulong id)
         {
             foreach (var user in Program.userList)
@@ -24,6 +25,17 @@
             }
 
             return false;
+        }
+
+        internal static void ConcatContent(ulong id, string[] content)
+        {
+            Information info = GetInformation(id, content[0]);
+            content.CopyTo(content, 1);
+            foreach (var text in content)
+            {
+                info.Content.Add(text);
+            }
+
         }
 
         internal static User GetUser(ulong id)
@@ -72,6 +84,20 @@
                 }
             }
             return null;
+        }
+
+        internal static string GetAllContent(ulong id)
+        {
+            string output = "";
+            foreach (var info in GetUser(id).Info)
+            {
+                foreach (var text in info.Content)
+                {
+                    output += text;
+                    output += "\n";
+                }
+            }
+            return output;
         }
 
         internal static string GetAllContent(ulong id, string searchTerm)

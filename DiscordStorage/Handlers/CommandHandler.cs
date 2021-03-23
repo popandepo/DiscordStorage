@@ -12,8 +12,14 @@ namespace DiscordStorage
                 case "+":
                     user.Info.Add(new Information(content));
                     break;
+                case "++":
+                    UserTools.ConcatContent(id, content);
+                    break;
                 case "?":
                     Program._client.GetUser(id).SendMessageAsync(UserTools.GetAllContent(id, content[0]));
+                    break;
+                case "??":
+                    Program._client.GetUser(id).SendMessageAsync(UserTools.GetAllContent(id));
                     break;
                 default:
                     break;
