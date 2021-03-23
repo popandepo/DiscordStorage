@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DiscordStorage
 {
@@ -50,6 +51,13 @@ namespace DiscordStorage
 
                 FileManipulation.WriteFile(user.ID.ToString(), output);
             }
+        }
+
+        internal static void Add(ulong id, string[] content)
+        {
+            User user = GetUser(id);
+            user.Info.Add(new Information(content));
+            user.Info.OrderBy(o => o.Content[0]).ThenBy(t => t.Content[1]);
         }
 
         internal static void CreateGroup(ulong id, string[] content)

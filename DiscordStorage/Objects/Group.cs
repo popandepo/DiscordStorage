@@ -12,8 +12,9 @@ namespace DiscordStorage
 
         public Group(params User[] users)
         {
-            Users = users.ToList();
+            Users = users.OrderBy(u => u.ID).ToList();
             ID = "";
+            Info = new List<Information>();
             List<string> ids = new List<string>();
             foreach (var user in Users)
             {
