@@ -33,8 +33,15 @@ namespace DiscordStorage
             {
                 foreach (var Message in Messages)
                 {
-                    RecieverUser.SendMessageAsync($"{SenderUser} enqueued a message:\n{Message}");
-                    SenderUser.SendMessageAsync($"\"{Message}\" \nhas been sent to {RecieverUser}");
+                    RecieverUser.SendMessageAsync(
+                        $"{SenderUser} enqueued a message:\n" +
+                        $"\"{Message}\""
+                        );
+                    SenderUser.SendMessageAsync(
+                        $"The message\n" +
+                        $"\"{Message}\"\n" +
+                        $"has been sent to {RecieverUser}"
+                        );
                 }
                 Timer.Stop();
                 Timer.Dispose();
