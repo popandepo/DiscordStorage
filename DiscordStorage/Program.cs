@@ -12,6 +12,7 @@ namespace DiscordStorage
 
         public static List<User> userList = new List<User>();
         public static List<Group> groupList = new List<Group>();
+        public static List<QueuedMessage> queueList = new List<QueuedMessage>();
 
         public static char commandChar = '§';
         public static char splitChar = '|';

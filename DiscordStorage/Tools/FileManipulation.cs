@@ -1,5 +1,4 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 
 namespace DiscordStorage
 {
@@ -33,9 +32,15 @@ namespace DiscordStorage
             foreach (var text in crbr)
             {
                 string[] words = text.Split('|');
-                User user = UserTools.GetUser(Convert.ToUInt64(id));
 
-                user.Info.Add(new Information(words));
+                try
+                {
+                    Group group = GroupTools.GetGroup(id);
+                    group.Info.Add(new Information(words));
+                }
+                catch
+                {
+                }
             }
         }
 

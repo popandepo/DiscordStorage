@@ -24,6 +24,9 @@ namespace DiscordStorage
             {
                 ID += id.Remove(18 / ids.Count);
             }
+
+            FileManipulation.LoadFile(ID);
+
             foreach (var user in Users)
             {
                 string output = "You have been added to a group with the members: ";

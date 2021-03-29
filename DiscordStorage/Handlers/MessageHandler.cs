@@ -22,7 +22,7 @@ namespace DiscordStorage
                     try
                     {
                         string command = message.Content.Split(Program.commandChar)[0];
-                        string rest = message.Content.Remove(0, command.Length + 1).ToLower().Trim('|');
+                        string rest = message.Content.Remove(0, command.Length + 1).Trim('|');
                         string[] content = rest.Split(Program.splitChar);
 
                         CommandHandler.Send(message.Author.Id, command, content);

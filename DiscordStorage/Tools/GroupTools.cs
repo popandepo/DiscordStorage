@@ -1,9 +1,27 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace DiscordStorage
 {
     class GroupTools
     {
+        internal static void CreateGroup(ulong id, string[] content)
+        {
+            User[] usersToAdd = new User[content.Length + 1];
+            for (int i = 0; i < usersToAdd.Length; i++)
+            {
+                if (i == 0)
+                {
+                    usersToAdd[0] = UserTools.GetUser(id);
+                }
+                else
+                {
+                    usersToAdd[i] = UserTools.GetUser(Convert.ToUInt64(content[i - 1]));
+                }
+            }
+            Program.groupList.Add(new Group(usersToAdd));
+        }
+
         internal static void Add(string[] content)
         {
             Group group = GetGroup(content[0]);
@@ -13,7 +31,7 @@ namespace DiscordStorage
             group.Info.Add(new Information(content));
         }
 
-        private static Group GetGroup(string id)
+        internal static Group GetGroup(string id)
         {
             foreach (var group in Program.groupList)
             {

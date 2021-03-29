@@ -1,5 +1,5 @@
 ﻿using Discord;
-using System.Linq;
+using System;
 
 namespace DiscordStorage
 {
@@ -37,10 +37,11 @@ namespace DiscordStorage
             User user = UserTools.GetUser(id);
             switch (command)
             {
+                case "queue":
+                    QueueTools.TryCreate(id, Convert.ToUInt64(content[0]), content[1]);
+                    break;
                 case "+":
                     UserTools.Add(id, content);
-                    user.Info.Add(new Information(content));
-                    user.Info.OrderBy(o => o.Content[0]).ThenBy(t => t.Content[1]);
                     UserTools.SaveAll();
                     break;
                 case "++":
@@ -55,7 +56,7 @@ namespace DiscordStorage
                     break;
 
                 case "&+":
-                    UserTools.CreateGroup(id, content);
+                    GroupTools.CreateGroup(id, content);
                     break;
                 case "G+":
                     GroupTools.Add(content);

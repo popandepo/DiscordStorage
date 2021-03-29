@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
 namespace DiscordStorage
@@ -57,24 +56,7 @@ namespace DiscordStorage
         {
             User user = GetUser(id);
             user.Info.Add(new Information(content));
-            user.Info.OrderBy(o => o.Content[0]).ThenBy(t => t.Content[1]);
-        }
-
-        internal static void CreateGroup(ulong id, string[] content)
-        {
-            User[] usersToAdd = new User[content.Length + 1];
-            for (int i = 0; i < usersToAdd.Length; i++)
-            {
-                if (i == 0)
-                {
-                    usersToAdd[0] = GetUser(id);
-                }
-                else
-                {
-                    usersToAdd[i] = GetUser(Convert.ToUInt64(content[i - 1]));
-                }
-            }
-            Program.groupList.Add(new Group(usersToAdd));
+            user.Info = user.Info.OrderBy(o => o.Content[0]).ThenBy(t => t.Content[1]).ToList();
         }
 
         internal static void ConcatContent(ulong id, string[] content)
