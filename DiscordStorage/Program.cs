@@ -13,6 +13,7 @@ namespace DiscordStorage
         public static List<User> userList = new List<User>();
         public static List<Group> groupList = new List<Group>();
         public static List<QueuedMessage> queueList = new List<QueuedMessage>();
+        public static List<Reminder> reminderList = new List<Reminder>();
 
         public static char commandChar = '§';
         public static char splitChar = '|';
@@ -33,7 +34,6 @@ namespace DiscordStorage
                 await _client.StartAsync();
                 await _client.SetStatusAsync(UserStatus.Online);
                 _client.MessageReceived += MessageHandler.Send;
-
                 while (true)
                 {
 

@@ -40,6 +40,9 @@ namespace DiscordStorage
                 case "queue":
                     QueueTools.TryCreate(id, Convert.ToUInt64(content[0]), content[1]);
                     break;
+                case "remind":
+                    ReminderTools.TryCreate(id, content[0], content[1]);
+                    break;
                 case "+":
                     UserTools.Add(id, content);
                     UserTools.SaveAll();

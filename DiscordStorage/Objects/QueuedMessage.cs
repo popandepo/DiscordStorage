@@ -1,6 +1,5 @@
 ﻿using Discord;
 using System.Collections.Generic;
-using System.Linq;
 using System.Timers;
 
 namespace DiscordStorage
@@ -12,13 +11,13 @@ namespace DiscordStorage
         public List<string> Messages { get; set; }
         public Timer Timer { get; set; }
 
-        public QueuedMessage(ulong sender, ulong reciever, params string[] messages)
+        public QueuedMessage(ulong sender, ulong reciever, string message, int time = 600)
         {
             Sender = sender;
             Reciever = reciever;
-            Messages = messages.ToList();
+            Messages = new List<string> { message };
 
-            Timer = new Timer(600_000);
+            Timer = new Timer(time * 1000);
             Timer.Elapsed += Timer_Elapsed;
             Timer.AutoReset = true;
             Timer.Start();

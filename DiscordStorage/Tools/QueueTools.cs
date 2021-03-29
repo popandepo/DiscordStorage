@@ -1,4 +1,6 @@
-﻿namespace DiscordStorage
+﻿using System;
+
+namespace DiscordStorage
 {
     class QueueTools
     {
@@ -12,7 +14,8 @@
             }
             else
             {
-                Program.queueList.Add(new QueuedMessage(sender, reciever, message));
+                Program.queueList.Add(new QueuedMessage(sender, reciever, message, 10)); //DEBUG 10 SECONDS, REMOVE "10" WHEN DONE WITH EXPERIMENTS
+                Console.WriteLine("DEBUG MESSAGE LINE 17 QueueToold.cs");
             }
 
         }

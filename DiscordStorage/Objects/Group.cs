@@ -12,9 +12,12 @@ namespace DiscordStorage
 
         public Group(params User[] users)
         {
+            //sorts the users by their ID
             Users = users.OrderBy(u => u.ID).ToList();
             ID = "";
             Info = new List<Information>();
+
+            //Generates a group ID based on the user IDs, this will always be the same if it has the same users in a group
             List<string> ids = new List<string>();
             foreach (var user in Users)
             {
